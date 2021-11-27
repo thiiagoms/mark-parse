@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node --experimental-modules index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest ./test",
     "cli": "node cli.js file.md"
   },
   "keywords": [],
@@ -14,5 +14,8 @@
   "dependencies": {
     "chalk": "^4.1.2",
     "node-fetch": "^2.6.6"
+  },
+  "devDependencies": {
+    "jest": "^27.3.1"
   }
 }

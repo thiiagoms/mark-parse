@@ -10,7 +10,7 @@ async function proccessFile(filePath) {
     if (filePath[3] === '--check-links') {
         console.log(chalk.yellow('[*] Links validate => '), await checkURL(result));
         return;
-    } 
+    }
     console.log(chalk.yellow('[*] Links list => '), result);
 }
 

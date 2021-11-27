@@ -1,30 +1,45 @@
 const fetch = require('node-fetch');
 
-async function checkStatusURL(arrayURLs) {
-    // promisses async and await
-    const statusList = await Promise.all(arrayURLs.map(
-        async url => {
-            const res = await fetch(url);
-            return res.status;
-        }
-    ));
+function handler(erro) {
+    throw new Error(erro.message);
+}
 
-    return statusList;
+async function checkStatusURL(arrayURLs) {
+    try {
+        const statusList = await Promise
+            .all(arrayURLs
+                .map(
+                    async url => {
+                        const response = await fetch(url);
+                        return `${response.status} => ${response.statusText}`
+                    }
+                )
+            );
+        return statusList;
+
+    } catch (erro) {
+        handler(erro);
+    }
 }
 
 function generateURLArray(arrayLinks) {
-    return arrayLinks.map(
-        objectLink => Object.values(objectLink)
-        .join()
-    );
+    return arrayLinks
+        .map(objectLink => Object
+            .values(objectLink)
+            .join()
+        );
 }
 
 async function validateURL(arrayLinks) {
     let links = generateURLArray(arrayLinks);
-    let statusLinks = checkStatusURL(links);
+    let statusLinks = await checkStatusURL(links);
 
-    return statusLinks;
+    let results = arrayLinks.map((obj, index) => ({
+        ...obj,
+        status: statusLinks[index]
+    }));
+
+    return results;
 }
-
 
 module.exports = validateURL;
