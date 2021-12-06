@@ -24,7 +24,6 @@ $ git clone https://github.com/thiiagoms/mark-links
 $ cd mark-links
 ```
 * Install dependencies:
-```
 ```bash
 $ npm i
 ```
